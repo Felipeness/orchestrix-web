@@ -1,0 +1,1 @@
+{"root":["./src/main.tsx","./src/app/app.tsx","./src/app/layout.tsx","./src/features/dashboard/dashboardpage.tsx","./src/features/settings/settingspage.tsx","./src/features/workflow/workflowdetailpage.tsx","./src/features/workflow/workflowlistpage.tsx","./src/lib/api.ts","./src/stores/settings.ts"],"version":"5.9.3"}
