@@ -1,5 +1,6 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { clsx } from "clsx";
+import { useAuth } from "@/features/auth/AuthContext";
 
 const navItems = [
   { path: "/", label: "Dashboard" },
@@ -9,31 +10,51 @@ const navItems = [
 
 export function Layout() {
   const location = useLocation();
+  const { user, logout } = useAuth();
 
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-background/95 backdrop-blur">
-        <div className="container flex h-14 items-center">
-          <div className="mr-8 flex items-center space-x-2">
-            <span className="text-xl font-bold">Orchestrix</span>
+        <div className="container flex h-14 items-center justify-between">
+          <div className="flex items-center">
+            <div className="mr-8 flex items-center space-x-2">
+              <span className="text-xl font-bold">Orchestrix</span>
+            </div>
+            <nav className="flex items-center space-x-6">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={clsx(
+                    "text-sm font-medium transition-colors hover:text-primary",
+                    location.pathname === item.path
+                      ? "text-foreground"
+                      : "text-muted-foreground"
+                  )}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
           </div>
-          <nav className="flex items-center space-x-6">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={clsx(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  location.pathname === item.path
-                    ? "text-foreground"
-                    : "text-muted-foreground"
-                )}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+
+          {/* User menu */}
+          <div className="flex items-center space-x-4">
+            {user && (
+              <>
+                <span className="text-sm text-muted-foreground">
+                  {user.name || user.email}
+                </span>
+                <button
+                  onClick={logout}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Logout
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </header>
 

@@ -69,7 +69,7 @@ export function WorkflowListPage() {
                   </span>
                 </td>
                 <td className="px-4 py-3 text-sm text-muted-foreground">
-                  {new Date(workflow.createdAt).toLocaleDateString()}
+                  {new Date(workflow.created_at).toLocaleDateString()}
                 </td>
                 <td className="px-4 py-3 text-right">
                   <button className="text-sm text-primary hover:underline">

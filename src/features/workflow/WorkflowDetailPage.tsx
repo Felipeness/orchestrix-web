@@ -73,13 +73,13 @@ export function WorkflowDetailPage() {
             <div>
               <dt className="text-sm text-muted-foreground">Created</dt>
               <dd className="mt-1">
-                {new Date(workflow.createdAt).toLocaleString()}
+                {new Date(workflow.created_at).toLocaleString()}
               </dd>
             </div>
             <div>
               <dt className="text-sm text-muted-foreground">Last Updated</dt>
               <dd className="mt-1">
-                {new Date(workflow.updatedAt).toLocaleString()}
+                {new Date(workflow.updated_at).toLocaleString()}
               </dd>
             </div>
           </dl>
