@@ -11,8 +11,11 @@ export function SettingsPage() {
 				<div className="rounded-lg border p-6">
 					<h2 className="text-lg font-semibold">Appearance</h2>
 					<div className="mt-4">
-						<label className="text-sm font-medium">Theme</label>
+						<label htmlFor="theme-select" className="text-sm font-medium">
+							Theme
+						</label>
 						<select
+							id="theme-select"
 							value={theme}
 							onChange={(e) => setTheme(e.target.value as 'light' | 'dark' | 'system')}
 							className="mt-1 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
@@ -43,7 +46,10 @@ export function SettingsPage() {
 					<p className="mt-2 text-sm text-muted-foreground">
 						Manage your API keys for programmatic access.
 					</p>
-					<button className="mt-4 rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground hover:bg-secondary/80">
+					<button
+						type="button"
+						className="mt-4 rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground hover:bg-secondary/80"
+					>
 						Generate New Key
 					</button>
 				</div>

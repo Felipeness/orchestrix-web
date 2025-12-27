@@ -43,6 +43,7 @@ export function Layout() {
 							<>
 								<span className="text-sm text-muted-foreground">{user.name || user.email}</span>
 								<button
+									type="button"
 									onClick={logout}
 									className="text-sm text-muted-foreground hover:text-foreground transition-colors"
 								>

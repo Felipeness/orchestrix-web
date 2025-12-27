@@ -40,7 +40,10 @@ export function WorkflowDetailPage() {
 						<p className="mt-1 text-muted-foreground">{workflow.description}</p>
 					)}
 				</div>
-				<button className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90">
+				<button
+					type="button"
+					className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+				>
 					Execute
 				</button>
 			</div>

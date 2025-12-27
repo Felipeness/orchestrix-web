@@ -100,6 +100,7 @@ export const api = {
 	// Dashboard
 	getDashboardStats: async (): Promise<DashboardStats> => {
 		try {
+			// biome-ignore lint/nursery/noSecrets: This is a URL query string, not a secret
 			const workflows = await request<PaginatedResponse<Workflow>>('/workflows?limit=100');
 			const activeWorkflows = workflows.data.filter((w) => w.status === 'active').length;
 
