@@ -10,34 +10,45 @@ export const keycloak = new Keycloak({
 	clientId: KEYCLOAK_CLIENT_ID,
 });
 
+let initPromise: Promise<boolean> | null = null;
+
 export async function initKeycloak(): Promise<boolean> {
-	try {
-		const authenticated = await keycloak.init({
-			onLoad: 'login-required',
-			checkLoginIframe: false,
-			pkceMethod: 'S256',
-		});
-
-		if (authenticated) {
-			// Set up token refresh
-			setInterval(async () => {
-				try {
-					const refreshed = await keycloak.updateToken(60);
-					if (refreshed) {
-						console.debug('Token refreshed');
-					}
-				} catch {
-					console.warn('Failed to refresh token, redirecting to login');
-					keycloak.login();
-				}
-			}, 30000); // Check every 30 seconds
-		}
-
-		return authenticated;
-	} catch (error) {
-		console.error('Keycloak init error:', error);
-		return false;
+	// Prevent double initialization (React StrictMode)
+	if (initPromise) {
+		return initPromise;
 	}
+
+	initPromise = (async () => {
+		try {
+			const authenticated = await keycloak.init({
+				onLoad: 'login-required',
+				checkLoginIframe: false,
+				pkceMethod: 'S256',
+			});
+
+			if (authenticated) {
+				// Set up token refresh
+				setInterval(async () => {
+					try {
+						const refreshed = await keycloak.updateToken(60);
+						if (refreshed) {
+							console.debug('Token refreshed');
+						}
+					} catch {
+						console.warn('Failed to refresh token, redirecting to login');
+						keycloak.login();
+					}
+				}, 30000); // Check every 30 seconds
+			}
+
+			return authenticated;
+		} catch (error) {
+			console.error('Keycloak init error:', error);
+			return false;
+		}
+	})();
+
+	return initPromise;
 }
 
 export function getToken(): string | undefined {
